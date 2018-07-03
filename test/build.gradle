@@ -1,0 +1,79 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+
+    buildToolsVersion '27.0.3'
+
+    defaultConfig {
+        applicationId "com.example.test"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        /**添加多 dex分包支持*/
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+// 保证其他的lib没有被preDex
+    dexOptions {
+        preDexLibraries = false
+    }
+    productFlavors {
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:26.0.0-beta1'
+    implementation 'com.android.support:recyclerview-v7:26.0.0-beta1'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    compile 'com.android.support:multidex:1.0.1'
+
+    implementation 'com.squareup.okhttp3:okhttp:3.3.1'
+    implementation 'com.belerweb:pinyin4j:2.5.0'
+    /**
+     * 右滑动关闭
+     */
+    implementation 'com.github.zhangliangming:SwipeBackLayout:v2.5'
+    /**
+     * 旋转界面
+     */
+    implementation 'com.github.zhangliangming:RotateLayout:v2.5'
+    /**
+     * 进度条
+     */
+    implementation 'com.github.zhangliangming:SeekBar:v3.5'
+    /**
+     * 歌词
+     */
+    implementation 'com.github.zhangliangming:HPLyrics:v1.40'
+
+    /**
+     * 音频
+     */
+    implementation 'com.github.zhangliangming:HPAudio:v2.4'
+
+    /**
+     * 注册码
+     */
+    implementation 'com.github.zhangliangming:Register:v1.0'
+}
